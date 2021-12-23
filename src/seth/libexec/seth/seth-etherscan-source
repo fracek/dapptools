@@ -36,7 +36,10 @@ case "$chain" in
     URL="${ETHERSCAN_API_URL:-https://api-kovan-optimistic.etherscan.io/}"
     ;;
   arbitrum-mainnet)
-    URL="${ETHERSCAN_API_URL:-https://api.arbiscan.io/api}"
+    URL="${ETHERSCAN_API_URL:-https://api.arbiscan.io}"
+    ;;
+  arbitrum-rinkeby)
+    URL="${ETHERSCAN_API_URL:-https://api-testnet.arbiscan.io}"
     ;;
   bsctest)
     URL="${ETHERSCAN_API_URL:-https://api-testnet.bscscan.com}"
@@ -57,7 +60,6 @@ case "$chain" in
     echo >&2 "Source fetching only works on mainnet, ropsten, kovan, rinkeby, goerli, optimism-mainnet, optimism-kovan, arbitrum-mainnet, polygon, and fantom."
     exit 1
 esac
-
 
 RESPONSE=$(seth curl "${URL}/api?module=contract&action=getsourcecode&address=${ADDR}&apikey=${ETHERSCAN_API_KEY}" | seth --show-json)
 
